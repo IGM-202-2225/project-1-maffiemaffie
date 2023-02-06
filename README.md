@@ -4,8 +4,8 @@
 
 ### Student Info
 
--   Name: YOUR NAME
--   Section: ##
+-   Name: Maffie Cohen
+-   Section: 01
 
 ## Game Design
 
