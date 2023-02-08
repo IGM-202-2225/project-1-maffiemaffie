@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    private Vector3 player_Position = Vector3.zero;
     private Vector3 velocity = Vector3.zero;
     private Vector3 acceleration = Vector3.zero;
     private Vector3 direction = Vector3.right;
@@ -13,13 +12,15 @@ public class Movement : MonoBehaviour
     {
         get
         {
-            float _x = (transform.position.x - 5.0f) / 10.0f;
-            float _y = (transform.position.y - 2.5f) / 5.0f;
+            float _x = (transform.position.x + 5.0f) / 10.0f;
+            float _y = (transform.position.y + 2.5f) / 5.0f;
 
-            float scaledX = Mathf.Lerp(_x, 0, Screen.width);
-            float scaledY = Mathf.Lerp(_y, 0, Screen.height);
+            float scaledX = Mathf.LerpUnclamped(_x, 0, Screen.width);
+            float scaledY = Mathf.LerpUnclamped(_y, 0, Screen.height);
 
-            return new Vector3(scaledX, scaledY, 0);
+            // Debug.Log("Position Retrieved: " + scaledX + "  " + scaledY);
+
+            return new Vector3(scaledX, scaledY, transform.position.z);
         }
 
         set
@@ -27,10 +28,13 @@ public class Movement : MonoBehaviour
             float _x = value.x / Screen.width;
             float _y = value.y / Screen.height;
 
-            float scaledX = Mathf.Lerp(_x, -5.0f, 5.0f);
-            float scaledY = Mathf.Lerp(_y, 2.5f, 2.5f);
+            float scaledX = Mathf.LerpUnclamped(_x, -5.0f, 5.0f);
+            float scaledY = Mathf.LerpUnclamped(_y, -2.5f, 2.5f);
 
-            transform.position = new Vector3(scaledX, scaledY, 0);
+            Debug.Log("Position Set: " + _x + " " + _y);
+            Debug.Log("Position Scaled: " + scaledX + " " + scaledY);
+
+            transform.position = new Vector3(scaledX, scaledY, value.z);
         }
     }
 
@@ -40,7 +44,7 @@ public class Movement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -59,6 +63,6 @@ public class Movement : MonoBehaviour
         transform.position = player_Position;
         */
 
-        Position += strength * direction * Time.deltaTime;
+        Position = Vector3.zero;
     }
 }
