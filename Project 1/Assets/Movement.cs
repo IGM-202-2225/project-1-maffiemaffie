@@ -12,13 +12,11 @@ public class Movement : MonoBehaviour
     {
         get
         {
-            float _x = (transform.position.x + 5.0f) / 10.0f;
-            float _y = (transform.position.y + 2.5f) / 5.0f;
+            float _x = (transform.position.x + 10.0f) / 20.0f;
+            float _y = (transform.position.y + 5.0f) / 10.0f;
 
-            float scaledX = Mathf.LerpUnclamped(_x, 0, Screen.width);
-            float scaledY = Mathf.LerpUnclamped(_y, 0, Screen.height);
-
-            // Debug.Log("Position Retrieved: " + scaledX + "  " + scaledY);
+            float scaledX = Mathf.LerpUnclamped(0, Screen.width, _x);
+            float scaledY = Mathf.LerpUnclamped(0, Screen.height, _y);
 
             return new Vector3(scaledX, scaledY, transform.position.z);
         }
@@ -28,18 +26,15 @@ public class Movement : MonoBehaviour
             float _x = value.x / Screen.width;
             float _y = value.y / Screen.height;
 
-            float scaledX = Mathf.LerpUnclamped(_x, -5.0f, 5.0f);
-            float scaledY = Mathf.LerpUnclamped(_y, -2.5f, 2.5f);
-
-            Debug.Log("Position Set: " + _x + " " + _y);
-            Debug.Log("Position Scaled: " + scaledX + " " + scaledY);
+            float scaledX = Mathf.LerpUnclamped(-10.0f, 10.0f, _x);
+            float scaledY = Mathf.LerpUnclamped(-5.0f, 5.0f, _y);
 
             transform.position = new Vector3(scaledX, scaledY, value.z);
         }
     }
 
     [SerializeField]
-    float strength = 10f;
+    float strength = 10.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -52,17 +47,12 @@ public class Movement : MonoBehaviour
     {
         Vector3 mousePos = Input.mousePosition;
 
-        direction = Vector3.Normalize(mousePos - Position);
+        Vector3 toCursor = mousePos - Position;
+        direction = Vector3.Normalize(toCursor);
 
-        /**
-        acceleration = (strength / Vector3.SqrMagnitude(mousePos - player_Position)) * direction;
+        acceleration = strength * toCursor.sqrMagnitude * direction;
 
         velocity += acceleration * Time.deltaTime;
-        player_Position += velocity * Time.deltaTime;
-
-        transform.position = player_Position;
-        */
-
-        Position = Vector3.zero;
+        Position += velocity * Time.deltaTime;
     }
 }
