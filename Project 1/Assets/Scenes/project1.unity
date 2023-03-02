@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 137992514}
   - component: {fileID: 137992513}
   - component: {fileID: 137992512}
+  - component: {fileID: 137992515}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -207,6 +208,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &137992515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 137992511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76ca7b1a6abce094bb310010af327d10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireRate: 50
+  projectile: {fileID: 0}
 --- !u!1 &1646792862
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,6 +232,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1646792865}
   - component: {fileID: 1646792864}
+  - component: {fileID: 1646792867}
   - component: {fileID: 1646792863}
   - component: {fileID: 1646792866}
   m_Layer: 0
@@ -239,7 +255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCam: {fileID: 137992513}
-  MaxVelocity: 50
+  MaxVelocity: 35
   strength: 25
   damping: 0.01
 --- !u!212 &1646792864
@@ -283,7 +299,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 40c45ca60ff86ec4c831fcf4a128ba48, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -333,9 +349,71 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f539f0f9-2f7f-49e1-9b3d-ba405d3b8858
+    m_ActionName: Player/Move[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bb214287-7228-43af-8b5c-8a8fbe1a6190
+    m_ActionName: Player/Fire[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 25284c6b-e36b-48e2-b8bf-2d88955e7a15
+    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0d857d00-dce0-4a25-8746-46aa9d62a1c7
+    m_ActionName: UI/Submit[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4dc3fda5-4cd2-4594-a920-f991d4a8a0ee
+    m_ActionName: UI/Cancel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1962fb94-0858-43a0-ad4b-f62e5df01a3e
+    m_ActionName: UI/Point[/Mouse/position,/Pen/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: cf1fe681-fd8d-461e-841d-ac6eda4960c3
+    m_ActionName: UI/Click[/Mouse/leftButton,/Pen/tip]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 50aab05a-624b-43f4-8990-edd29db20d19
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 187f6d27-7d31-444c-9c41-b3990a5ac1d8
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e4b43eae-c5f6-49b7-a379-02913881cf79
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ecf3dfa3-c741-4a02-bbf4-b2842612cb80
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1b21c663-6055-4ac3-a098-7716d787aa53
+    m_ActionName: UI/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 137992513}
+--- !u!114 &1646792867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646792862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76ca7b1a6abce094bb310010af327d10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireRate: 20
+  projectile: {fileID: 5755757189929809348, guid: cc50818a5fb9daf42b20edbe58ef33bb, type: 3}
