@@ -8,12 +8,15 @@ public class Shooter : MonoBehaviour
     private bool isFiring = false;
 
     [SerializeField]
-    float fireRate = 50f;
+    private float fireRate = 50f;
 
     [SerializeField]
-    GameObject projectile;
+    private GameObject projectile;
 
-    float sinceLastFire = 0;
+    [SerializeField]
+    private GameObject collisionManager;
+
+    private float sinceLastFire = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -39,9 +42,10 @@ public class Shooter : MonoBehaviour
         
         if (sinceLastFire > 1 / fireRate)
         {
-            sinceLastFire %= 1 / fireRate;
+            sinceLastFire %= (1 / fireRate);
             GameObject thisProjectile = Instantiate(projectile, transform.position, Quaternion.identity);
             thisProjectile.GetComponent<BulletMove>().direction = transform.right;
+            collisionManager.GetComponent<Collision>().Projectiles.Add(thisProjectile);
         }
     }
 }
