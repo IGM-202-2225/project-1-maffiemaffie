@@ -134,7 +134,6 @@ GameObject:
   - component: {fileID: 137992514}
   - component: {fileID: 137992513}
   - component: {fileID: 137992512}
-  - component: {fileID: 137992515}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -208,21 +207,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &137992515
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 137992511}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76ca7b1a6abce094bb310010af327d10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fireRate: 50
-  projectile: {fileID: 0}
-  collisionManager: {fileID: 0}
 --- !u!1 &855059644
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,6 +238,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Projectiles: []
   Enemies: []
+  Player: {fileID: 1646792862}
+  Explodemy: {fileID: 8920107673990040809, guid: a5fa30322fcbcb048963ae70a8e12872, type: 3}
   Spawner: {fileID: 1617615649}
 --- !u!4 &855059646
 Transform:
@@ -366,8 +352,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCam: {fileID: 137992513}
-  MaxVelocity: 35
-  strength: 25
+  MaxVelocity: 40
+  strength: 30
   damping: 0.01
 --- !u!212 &1646792864
 SpriteRenderer:
@@ -526,6 +512,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76ca7b1a6abce094bb310010af327d10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRate: 20
+  fireRate: 10
   projectile: {fileID: 5755757189929809348, guid: cc50818a5fb9daf42b20edbe58ef33bb, type: 3}
   collisionManager: {fileID: 855059644}

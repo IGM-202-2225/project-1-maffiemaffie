@@ -9,6 +9,8 @@ public class Collision : MonoBehaviour
 
     public List<GameObject> Projectiles;
     public List<GameObject> Enemies;
+    public GameObject Player;
+    public GameObject Explodemy;
     [SerializeField]
     private GameObject Spawner;
 
@@ -48,6 +50,7 @@ public class Collision : MonoBehaviour
                 if (isCollidingCircles(Projectiles[i], Enemies[j]))
                 {
                     trash.Add(Projectiles[i]);
+                    Instantiate(Explodemy, Enemies[j].transform.position, Quaternion.identity);
                     trash.Add(Enemies[j]);
                 }
             }
@@ -62,6 +65,14 @@ public class Collision : MonoBehaviour
         if (Enemies.Count == 0)
         {
             Spawner.GetComponent<EnemySpawner>().SpawnEnemyCircle(5, 8);
+        }
+
+        Player.GetComponent<SpriteRenderer>().color = Color.white;
+        foreach (GameObject enemy in Enemies)
+        {
+            if (!isCollidingCircles(Player, enemy)) continue;
+            Player.GetComponent<SpriteRenderer>().color = Color.red;
+            break;
         }
     }
 
