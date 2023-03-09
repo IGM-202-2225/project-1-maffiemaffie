@@ -236,10 +236,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1884207f8012e4ae1a575dd9f381ab21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Projectiles: []
+  PlayerProjectiles: []
+  EnemyProjectiles: []
   Enemies: []
   Player: {fileID: 1646792862}
   Explodemy: {fileID: 8920107673990040809, guid: a5fa30322fcbcb048963ae70a8e12872, type: 3}
+  plusOne: {fileID: 6269994705442160101, guid: fcb06896a346d224fa8171e7ea4af5fe, type: 3}
+  plusFive: {fileID: 450308424057799957, guid: a6dbceb08a666dd44bd1cd0cba2c2cf5, type: 3}
   Spawner: {fileID: 1617615649}
 --- !u!4 &855059646
 Transform:
@@ -317,6 +320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indicator: {fileID: 8769379721412953468, guid: bd433213bcb1546bba1e18402c1d9a4e, type: 3}
   enemy: {fileID: 909105857321192889, guid: 100681aad426247cbadd3df90ea86cc1, type: 3}
+  bitchShooter: {fileID: 5022885876639652785, guid: 61bbe21aabb63304b8fbed1086022f4f, type: 3}
   player: {fileID: 1646792862}
   CollisionManager: {fileID: 855059644}
 --- !u!1 &1646792862
@@ -332,6 +336,7 @@ GameObject:
   - component: {fileID: 1646792867}
   - component: {fileID: 1646792863}
   - component: {fileID: 1646792866}
+  - component: {fileID: 1646792868}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -513,5 +518,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireRate: 10
-  projectile: {fileID: 5755757189929809348, guid: cc50818a5fb9daf42b20edbe58ef33bb, type: 3}
+  projectile: {fileID: 5755757189929809348, guid: cf78aa6d1f01d0c46b10dbc3e5e78d88, type: 3}
   collisionManager: {fileID: 855059644}
+--- !u!114 &1646792868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646792862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfc33d140e8ae3441bf1b58bede4daf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 100

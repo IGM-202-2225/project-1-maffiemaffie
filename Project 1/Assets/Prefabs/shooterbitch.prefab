@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &909105857321192889
+--- !u!1 &5022885876639652785
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,24 +8,24 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8972295021320266380}
-  - component: {fileID: 4603894475530462562}
-  - component: {fileID: -3113334702351734919}
-  - component: {fileID: 1166864919963681524}
+  - component: {fileID: 8638000975054127322}
+  - component: {fileID: 415088075785326653}
+  - component: {fileID: 3349204770399044731}
+  - component: {fileID: -133272871865650567}
   m_Layer: 0
-  m_Name: enemy
+  m_Name: shooterbitch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8972295021320266380
+--- !u!4 &8638000975054127322
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 909105857321192889}
+  m_GameObject: {fileID: 5022885876639652785}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -34,13 +34,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &4603894475530462562
+--- !u!212 &415088075785326653
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 909105857321192889}
+  m_GameObject: {fileID: 5022885876639652785}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8ac64903dde414adeb79700d9bdd1f07, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e74e185a2cb854a47957df4053e8c443, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -86,30 +86,32 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-3113334702351734919
+--- !u!114 &3349204770399044731
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 909105857321192889}
+  m_GameObject: {fileID: 5022885876639652785}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f1bb2c09056f4407a9efd3bae968b40, type: 3}
+  m_Script: {fileID: 11500000, guid: d51e8294d8970b741ac0ea66e83bc83c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  projectile: {fileID: 5755757189929809348, guid: cc50818a5fb9daf42b20edbe58ef33bb, type: 3}
   player: {fileID: 0}
---- !u!114 &1166864919963681524
+  collisionManager: {fileID: 0}
+  fireRate: 5
+--- !u!114 &-133272871865650567
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 909105857321192889}
+  m_GameObject: {fileID: 5022885876639652785}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfc33d140e8ae3441bf1b58bede4daf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 1
+  MaxHealth: 50

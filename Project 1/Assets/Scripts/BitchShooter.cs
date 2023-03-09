@@ -1,27 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class Shooter : MonoBehaviour
+public class BitchShooter : MonoBehaviour
 {
-    private bool isFiring = false;
+    public GameObject projectile;
+    public GameObject player;
+    public GameObject collisionManager;
 
     [SerializeField]
-    private float fireRate = 50f;
-
-    [SerializeField]
-    private GameObject projectile;
-
-    [SerializeField]
-    private GameObject collisionManager;
+    private float fireRate = 1f;
 
     private float sinceLastFire = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -30,22 +25,15 @@ public class Shooter : MonoBehaviour
         Fire();
     }
 
-    void OnFire(InputValue fireValue)
-    {
-        isFiring = fireValue.isPressed;
-    }
-
     void Fire()
     {
         sinceLastFire += Time.deltaTime;
-        if (!isFiring) return;
-        
         if (sinceLastFire > 1 / fireRate)
         {
             sinceLastFire %= (1 / fireRate);
             GameObject thisProjectile = Instantiate(projectile, transform.position, Quaternion.identity);
-            thisProjectile.GetComponent<BulletMove>().direction = transform.right;
-            collisionManager.GetComponent<Collision>().PlayerProjectiles.Add(thisProjectile);
+            thisProjectile.GetComponent<BulletMove>().direction = (player.transform.position - thisProjectile.transform.position).normalized;
+            collisionManager.GetComponent<Collision>().EnemyProjectiles.Add(thisProjectile);
         }
     }
 }

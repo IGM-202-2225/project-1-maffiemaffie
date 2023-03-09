@@ -7,10 +7,14 @@ public class Collision : MonoBehaviour
 {
     private (float Right, float Top, float Left, float Bottom) bounds;
 
-    public List<GameObject> Projectiles;
+    public List<GameObject> PlayerProjectiles;
+    public List<GameObject> EnemyProjectiles;
     public List<GameObject> Enemies;
     public GameObject Player;
     public GameObject Explodemy;
+    public GameObject plusOne;
+    public GameObject plusFive;
+
     [SerializeField]
     private GameObject Spawner;
 
@@ -26,11 +30,25 @@ public class Collision : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Enemies.Count == 0) return;
-
+        DoPlayerOnEnemyCollision();
+        DoProjectileBoundsCollision();
+        DoProjectileOnEnemyCollision();
+        DoProjectileOnPlayerCollision();
+        DoEnemyOnEnemyViolence();
+    }
+    
+    private void DoProjectileBoundsCollision()
+    {
         List<GameObject> trash = new();
 
-        foreach (GameObject projectile in Projectiles)
+        foreach (GameObject projectile in PlayerProjectiles)
+        {
+            if (isCollidingBounds(projectile))
+            {
+                trash.Add(projectile);
+            }
+        }
+        foreach (GameObject projectile in EnemyProjectiles)
         {
             if (isCollidingBounds(projectile))
             {
@@ -39,40 +57,89 @@ public class Collision : MonoBehaviour
         }
         foreach (GameObject item in trash)
         {
-            Projectiles.Remove(item);
+            PlayerProjectiles.Remove(item);
+            EnemyProjectiles.Remove(item);
             Destroy(item);
         }
+    }
 
-        for (int i = 0; i < Projectiles.Count; i++)
-        {
-            for (int j = i; j < Enemies.Count; j++)
-            {
-                if (isCollidingCircles(Projectiles[i], Enemies[j]))
-                {
-                    trash.Add(Projectiles[i]);
-                    Instantiate(Explodemy, Enemies[j].transform.position, Quaternion.identity);
-                    trash.Add(Enemies[j]);
-                }
-            }
-        }
-        foreach (GameObject item in trash)
-        {
-            Projectiles.Remove(item);
-            Enemies.Remove(item);
-            Destroy(item);
-        }
-
-        if (Enemies.Count == 0)
-        {
-            Spawner.GetComponent<EnemySpawner>().SpawnEnemyCircle(5, 8);
-        }
-
+    private void DoPlayerOnEnemyCollision()
+    {
         Player.GetComponent<SpriteRenderer>().color = Color.white;
         foreach (GameObject enemy in Enemies)
         {
             if (!isCollidingCircles(Player, enemy)) continue;
             Player.GetComponent<SpriteRenderer>().color = Color.red;
             break;
+        }
+    }
+
+    private void DoProjectileOnEnemyCollision()
+    {
+        if (Enemies.Count == 0) return;
+
+        List<GameObject> trash = new();
+        for (int i = 0; i < PlayerProjectiles.Count; i++)
+        {
+            for (int j = i; j < Enemies.Count; j++)
+            {
+                if (isCollidingCircles(PlayerProjectiles[i], Enemies[j]))
+                {
+                    trash.Add(PlayerProjectiles[i]);
+                    Instantiate(Explodemy, Enemies[j].transform.position, Quaternion.identity);
+                    Instantiate(plusOne, Enemies[j].transform.position + Vector3.right * 1f, Quaternion.identity);
+                    trash.Add(Enemies[j]);
+                }
+            }
+        }
+        foreach (GameObject item in trash)
+        {
+            PlayerProjectiles.Remove(item);
+            Enemies.Remove(item);
+            Destroy(item);
+        }
+    }
+
+    private void DoProjectileOnPlayerCollision()
+    {
+        List<GameObject> trash = new();
+        for (int i = 0; i < EnemyProjectiles.Count; i++)
+        {
+            if (isCollidingCircles(EnemyProjectiles[i], Player))
+            {
+                trash.Add(EnemyProjectiles[i]);
+            }
+        }
+        foreach (GameObject item in trash)
+        {
+            EnemyProjectiles.Remove(item);
+            Destroy(item);
+        }
+    }
+
+    private void DoEnemyOnEnemyViolence()
+    {
+        if (Enemies.Count == 0) return;
+
+        List<GameObject> trash = new();
+        for (int i = 0; i < EnemyProjectiles.Count; i++)
+        {
+            for (int j = i; j < Enemies.Count; j++)
+            {
+                if (isCollidingCircles(EnemyProjectiles[i], Enemies[j]))
+                {
+                    trash.Add(EnemyProjectiles[i]);
+                    Instantiate(Explodemy, Enemies[j].transform.position, Quaternion.identity);
+                    Instantiate(plusFive, Enemies[j].transform.position + Vector3.right * 1f, Quaternion.identity);
+                    trash.Add(Enemies[j]);
+                }
+            }
+        }
+        foreach (GameObject item in trash)
+        {
+            EnemyProjectiles.Remove(item);
+            Enemies.Remove(item);
+            Destroy(item);
         }
     }
 
