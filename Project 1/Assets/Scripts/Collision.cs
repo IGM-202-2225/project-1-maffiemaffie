@@ -30,47 +30,56 @@ public class Collision : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CollectTrash();
         DoPlayerOnEnemyCollision();
         DoProjectileBoundsCollision();
         DoProjectileOnEnemyCollision();
         DoProjectileOnPlayerCollision();
         DoEnemyOnEnemyViolence();
     }
+
+    private void CollectTrash()
+    {
+        foreach (GameObject projectile in new List<GameObject>(EnemyProjectiles))
+        {
+            if (projectile == null) EnemyProjectiles.Remove(projectile);
+        }
+        foreach (GameObject projectile in new List<GameObject>(PlayerProjectiles))
+        {
+            if (projectile == null) PlayerProjectiles.Remove(projectile);
+        }
+        foreach (GameObject enemy in new List<GameObject>(Enemies))
+        {
+            if (enemy == null) Enemies.Remove(enemy);
+        }
+    }
     
     private void DoProjectileBoundsCollision()
     {
-        List<GameObject> trash = new();
-
         foreach (GameObject projectile in PlayerProjectiles)
         {
             if (isCollidingBounds(projectile))
             {
-                trash.Add(projectile);
+                projectile.GetComponent<Collidable>().HandleCollision(ColliderType.Bounds, null);
             }
         }
         foreach (GameObject projectile in EnemyProjectiles)
         {
             if (isCollidingBounds(projectile))
             {
-                trash.Add(projectile);
+                projectile.GetComponent<Collidable>().HandleCollision(ColliderType.Bounds, null);
             }
-        }
-        foreach (GameObject item in trash)
-        {
-            PlayerProjectiles.Remove(item);
-            EnemyProjectiles.Remove(item);
-            Destroy(item);
         }
     }
 
     private void DoPlayerOnEnemyCollision()
     {
-        Player.GetComponent<SpriteRenderer>().color = Color.white;
         foreach (GameObject enemy in Enemies)
         {
-            if (!isCollidingCircles(Player, enemy)) continue;
-            Player.GetComponent<SpriteRenderer>().color = Color.red;
-            break;
+            if (isCollidingCircles(Player, enemy))
+            {
+                Player.GetComponent<PlayerCollider>().HandleCollision(ColliderType.Enemy, enemy);
+            }
         }
     }
 
@@ -85,35 +94,18 @@ public class Collision : MonoBehaviour
             {
                 if (isCollidingCircles(PlayerProjectiles[i], Enemies[j]))
                 {
-                    trash.Add(PlayerProjectiles[i]);
-                    Instantiate(Explodemy, Enemies[j].transform.position, Quaternion.identity);
-                    Instantiate(plusOne, Enemies[j].transform.position + Vector3.right * 1f, Quaternion.identity);
-                    trash.Add(Enemies[j]);
+                    Enemies[j].GetComponent<Collidable>().HandleCollision(ColliderType.PlayerProjectile, PlayerProjectiles[i]);
+                    PlayerProjectiles[i].GetComponent<Collidable>().HandleCollision(ColliderType.Enemy, Enemies[j]);
                 }
             }
-        }
-        foreach (GameObject item in trash)
-        {
-            PlayerProjectiles.Remove(item);
-            Enemies.Remove(item);
-            Destroy(item);
         }
     }
 
     private void DoProjectileOnPlayerCollision()
     {
-        List<GameObject> trash = new();
-        for (int i = 0; i < EnemyProjectiles.Count; i++)
+        foreach (GameObject projectile in EnemyProjectiles)
         {
-            if (isCollidingCircles(EnemyProjectiles[i], Player))
-            {
-                trash.Add(EnemyProjectiles[i]);
-            }
-        }
-        foreach (GameObject item in trash)
-        {
-            EnemyProjectiles.Remove(item);
-            Destroy(item);
+            Player.GetComponent<Collidable>().HandleCollision(ColliderType.EnemyProjectile, projectile);
         }
     }
 
@@ -122,24 +114,16 @@ public class Collision : MonoBehaviour
         if (Enemies.Count == 0) return;
 
         List<GameObject> trash = new();
-        for (int i = 0; i < EnemyProjectiles.Count; i++)
+        foreach (GameObject projectile in EnemyProjectiles)
         {
-            for (int j = i; j < Enemies.Count; j++)
+            foreach (GameObject enemy in Enemies)
             {
-                if (isCollidingCircles(EnemyProjectiles[i], Enemies[j]))
+                if (isCollidingCircles(projectile, enemy))
                 {
-                    trash.Add(EnemyProjectiles[i]);
-                    Instantiate(Explodemy, Enemies[j].transform.position, Quaternion.identity);
-                    Instantiate(plusFive, Enemies[j].transform.position + Vector3.right * 1f, Quaternion.identity);
-                    trash.Add(Enemies[j]);
+                    projectile.GetComponent<Collidable>().HandleCollision(ColliderType.Enemy, enemy);
+                    enemy.GetComponent<Collidable>().HandleCollision(ColliderType.EnemyProjectile, projectile);
                 }
             }
-        }
-        foreach (GameObject item in trash)
-        {
-            EnemyProjectiles.Remove(item);
-            Enemies.Remove(item);
-            Destroy(item);
         }
     }
 

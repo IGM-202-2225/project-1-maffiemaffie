@@ -10,11 +10,13 @@ public class FloatOut : MonoBehaviour
 
     [SerializeField]
     private float time;
+    [SerializeField]
+    private Vector3 offset = Vector3.zero;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        transform.position += offset;
     }
 
     // Update is called once per frame

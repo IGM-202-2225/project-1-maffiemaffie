@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 415088075785326653}
   - component: {fileID: 3349204770399044731}
   - component: {fileID: -133272871865650567}
+  - component: {fileID: 6249535246742183492}
+  - component: {fileID: 4512074262140811145}
   m_Layer: 0
   m_Name: shooterbitch
   m_TagString: Untagged
@@ -114,4 +116,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfc33d140e8ae3441bf1b58bede4daf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 50
+  MaxHealth: 100
+  spawnOnDeath: []
+--- !u!114 &6249535246742183492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5022885876639652785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04ebf98b2b27047cba7112e5fcbfbcc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4512074262140811145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5022885876639652785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab01bb84eb0264432848d317e875cf55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 0.5
+  color: {r: 1, g: 0, b: 0, a: 1}
