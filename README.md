@@ -1,4 +1,4 @@
-# Project PROJECT_NAME
+# Project 1: Swing
 
 [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Here-Cheatsheet)
 
@@ -16,7 +16,7 @@
 
 ### Game Description
 
-[Project] is unique take on the shoot-em-up genre, featuring a peculiar style of movement. Use your mouse to sling and whip around, shooting enemies as they chasse you down. Charge up your special attack by tricking enemies into shooting each other and press [SPACE] to discharge a huge pulse of energy! Just be careful not to get hit too badly.
+Swing is a unique take on the shoot-em-up genre, featuring a peculiar style of movement. Use your mouse to sling and whip around, shooting enemies as they chasse you down. Charge up your special attack by tricking enemies into shooting each other and press [SPACE] to discharge a huge pulse of energy (plus a little bonus health for you <3)! Just be careful not to get hit too badly.
 
 ### Controls
 
