@@ -22,7 +22,9 @@ Swing is a unique take on the shoot-em-up genre, featuring a peculiar style of m
 
 -   Movement
     - Your spaceship spins and swings around your cursor position (think sticky hand physics)
--   Fire: Hold the left-click to repeatedly fire. Press space when the power bar is full to discharge a huge blast
+-   Fire:
+    - Hold the left-click to repeatedly fire. 
+    - Press space when the power bar is full to discharge a huge blast
 
 ## You Additions
 
