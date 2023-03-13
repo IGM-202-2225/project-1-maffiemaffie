@@ -114,7 +114,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfc33d140e8ae3441bf1b58bede4daf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 5
+  maxHealth: 5
+  cooldown: 0
+  increaseScore: 1
   spawnOnDeath:
   - {fileID: 8920107673990040809, guid: a5fa30322fcbcb048963ae70a8e12872, type: 3}
   - {fileID: 6269994705442160101, guid: fcb06896a346d224fa8171e7ea4af5fe, type: 3}
@@ -130,6 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04ebf98b2b27047cba7112e5fcbfbcc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  plusFive: {fileID: 450308424057799957, guid: a6dbceb08a666dd44bd1cd0cba2c2cf5, type: 3}
 --- !u!114 &-600599475976976705
 MonoBehaviour:
   m_ObjectHideFlags: 0

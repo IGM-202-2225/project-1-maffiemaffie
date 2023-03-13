@@ -35,7 +35,7 @@ public class TurnRedButThenDontAnymore : MonoBehaviour
     public void Flash()
     {
         GetComponent<SpriteRenderer>().color = color;
-        timeSinceStart = 0;
+        timeSinceStart %= duration;
         isFlashing = true;
     }
 }

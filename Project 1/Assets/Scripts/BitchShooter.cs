@@ -27,6 +27,7 @@ public class BitchShooter : MonoBehaviour
 
     void Fire()
     {
+        if (player == null) return;
         sinceLastFire += Time.deltaTime;
         if (sinceLastFire > 1 / fireRate)
         {

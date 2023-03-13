@@ -9,11 +9,11 @@ public class PlayerCollider : MonoBehaviour, Collidable
         switch(type)
         {
             case ColliderType.EnemyProjectile:
-                //GetComponent<HealthUWU>().Hurt(10);
+                GetComponent<HealthUWU>().Hurt(10);
                 GetComponent<TurnRedButThenDontAnymore>().Flash();
                 break;
             case ColliderType.Enemy:
-                //GetComponent<HealthUWU>().Hurt(20);
+                GetComponent<HealthUWU>().Hurt(20);
                 GetComponent<TurnRedButThenDontAnymore>().Flash();
                 break;
             default:

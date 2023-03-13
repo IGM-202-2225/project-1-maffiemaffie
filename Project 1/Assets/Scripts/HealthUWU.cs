@@ -4,8 +4,16 @@ using UnityEngine;
 
 public class HealthUWU : MonoBehaviour
 {
-    public int MaxHealth;
-    private int health;
+    [SerializeField]
+    protected int maxHealth;
+    [SerializeField]
+    private float cooldown;
+    protected int health;
+
+    [SerializeField]
+    private int increaseScore;
+
+    private float sinceLastHurt = 0;
 
     [SerializeField]
     private List<GameObject> spawnOnDeath;
@@ -13,7 +21,7 @@ public class HealthUWU : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        health = MaxHealth;
+        health = maxHealth;
     }
 
     // Update is called once per frame
@@ -26,11 +34,23 @@ public class HealthUWU : MonoBehaviour
                 Instantiate(gameObject, transform.position, Quaternion.identity);
             }
             Destroy(gameObject);
+            FindObjectOfType<GameManager>().IncrementScore(increaseScore);
         }
     }
 
-    public void Hurt(int amount)
+    public virtual void Hurt(int amount)
     {
-        health -= amount;
+        sinceLastHurt += Time.deltaTime;
+        if (sinceLastHurt > cooldown)
+        {
+            health -= amount;
+            sinceLastHurt %= cooldown;
+        }
+
+    }
+
+    public virtual void Heal(int amount)
+    {
+        health += amount;
     }
 }

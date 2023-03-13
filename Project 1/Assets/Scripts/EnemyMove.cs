@@ -17,6 +17,7 @@ public class EnemyMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (player == null) return;
         Vector3 toPlayer = (player.transform.position - transform.position).normalized;
         transform.position += toPlayer * speed * Time.deltaTime;
     }

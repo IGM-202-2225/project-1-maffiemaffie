@@ -10,6 +10,7 @@ public class Collision : MonoBehaviour
     public List<GameObject> PlayerProjectiles;
     public List<GameObject> EnemyProjectiles;
     public List<GameObject> Enemies;
+    public List<GameObject> Bitches;
     public GameObject Player;
     public GameObject Explodemy;
     public GameObject plusOne;
@@ -52,6 +53,10 @@ public class Collision : MonoBehaviour
         {
             if (enemy == null) Enemies.Remove(enemy);
         }
+        foreach (GameObject enemy in new List<GameObject>(Bitches))
+        {
+            if (enemy == null) Bitches.Remove(enemy);
+        }
     }
     
     private void DoProjectileBoundsCollision()
@@ -74,6 +79,7 @@ public class Collision : MonoBehaviour
 
     private void DoPlayerOnEnemyCollision()
     {
+        if (Player == null) return;
         foreach (GameObject enemy in Enemies)
         {
             if (isCollidingCircles(Player, enemy))
@@ -85,17 +91,24 @@ public class Collision : MonoBehaviour
 
     private void DoProjectileOnEnemyCollision()
     {
-        if (Enemies.Count == 0) return;
-
-        List<GameObject> trash = new();
-        for (int i = 0; i < PlayerProjectiles.Count; i++)
+        foreach (GameObject projectile in PlayerProjectiles)
         {
-            for (int j = i; j < Enemies.Count; j++)
+            foreach (GameObject enemy in Enemies)
             {
-                if (isCollidingCircles(PlayerProjectiles[i], Enemies[j]))
+                if (isCollidingCircles(projectile, enemy))
                 {
-                    Enemies[j].GetComponent<Collidable>().HandleCollision(ColliderType.PlayerProjectile, PlayerProjectiles[i]);
-                    PlayerProjectiles[i].GetComponent<Collidable>().HandleCollision(ColliderType.Enemy, Enemies[j]);
+                    enemy.GetComponent<Collidable>().HandleCollision(ColliderType.PlayerProjectile, projectile);
+                    projectile.GetComponent<Collidable>().HandleCollision(ColliderType.Enemy, enemy);
+                }
+            }
+
+            if (projectile == null) return;
+            foreach (GameObject enemy in Bitches)
+            {
+                if (isCollidingCircles(projectile, enemy))
+                {
+                    enemy.GetComponent<Collidable>().HandleCollision(ColliderType.PlayerProjectile, projectile);
+                    projectile.GetComponent<Collidable>().HandleCollision(ColliderType.Bitch, enemy);
                 }
             }
         }
@@ -103,17 +116,19 @@ public class Collision : MonoBehaviour
 
     private void DoProjectileOnPlayerCollision()
     {
+        if (Player == null) return;
+
         foreach (GameObject projectile in EnemyProjectiles)
         {
-            Player.GetComponent<Collidable>().HandleCollision(ColliderType.EnemyProjectile, projectile);
+            if (isCollidingCircles(Player, projectile))
+            {
+                Player.GetComponent<Collidable>().HandleCollision(ColliderType.EnemyProjectile, projectile);
+            }
         }
     }
 
     private void DoEnemyOnEnemyViolence()
     {
-        if (Enemies.Count == 0) return;
-
-        List<GameObject> trash = new();
         foreach (GameObject projectile in EnemyProjectiles)
         {
             foreach (GameObject enemy in Enemies)
@@ -148,7 +163,7 @@ public class Collision : MonoBehaviour
         Vector2 extents2 = bounds2.extents;
 
         float distance = (center1 - center2).sqrMagnitude;
-        float minDistanceWithoutColliding = (extents1.sqrMagnitude) + (extents2.sqrMagnitude);
+        float minDistanceWithoutColliding = (extents1.sqrMagnitude) + (extents2.sqrMagnitude) ;
 
         return distance < minDistanceWithoutColliding;
     }

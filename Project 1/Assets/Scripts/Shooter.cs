@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 public class Shooter : MonoBehaviour
@@ -35,7 +36,6 @@ public class Shooter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        QueueBigFire();
     }
 
     // Update is called once per frame
@@ -47,6 +47,17 @@ public class Shooter : MonoBehaviour
     void OnFire(InputValue fireValue)
     {
         isFiring = fireValue.isPressed;
+    }
+
+    void OnBigFire(InputValue bigFireValue)
+    {
+        PowerSlider slider = FindObjectOfType<PowerSlider>();
+        if (slider.GetComponent<Slider>().value == 1)
+        {
+            slider.resetPower();
+            QueueBigFire();
+            GetComponent<HealthUWU>().Heal(20);
+        }
     }
 
     void AdvanceTime()
@@ -81,18 +92,19 @@ public class Shooter : MonoBehaviour
     {
         for (float i = round.offset; i < round.count + round.offset; i++)
         {
-            float rotation = Mathf.PI / 4 * i;
+            float rotation = Mathf.PI * 2 / round.count * i;
             GameObject thisProjectile = Instantiate(projectile, transform.position, Quaternion.identity);
-            thisProjectile.GetComponent<BulletMove>().direction = transform.right;
+            thisProjectile.GetComponent<BulletMove>().direction = new Vector3(Mathf.Cos(rotation), Mathf.Sin(rotation), 0);
+            thisProjectile.GetComponent<BulletMove>().speed = 25;
             collisionManager.GetComponent<Collision>().PlayerProjectiles.Add(thisProjectile);
         }
     }
 
     void QueueBigFire()
     {
-        for(int i = 0; i < 4; i++)
+        for(int i = 0; i < 12; i++)
         {
-            bigFireQueue.Enqueue(new BigFireRound(8, 0.5f * (i % 2)));
+            bigFireQueue.Enqueue(new BigFireRound(16, 0.5f * (i % 2)));
         }
     }
 }
