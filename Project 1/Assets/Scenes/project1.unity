@@ -1779,7 +1779,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a61469f1d659446b39934e7fd722134d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnIntervalSeconds: 0.05
+  spawnIntervalSeconds: 0.03
   indicatorPrefab: {fileID: 5206040680472831624, guid: bd433213bcb1546bba1e18402c1d9a4e, type: 3}
 --- !u!114 &1617615652
 MonoBehaviour:
