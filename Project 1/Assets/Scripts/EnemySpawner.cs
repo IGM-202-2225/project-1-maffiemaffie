@@ -39,12 +39,12 @@ public class EnemySpawner : MonoBehaviour
     {
         #region Initialize Bounds
         bounds.Top = Camera.main.orthographicSize;
-            bounds.Bottom = -Camera.main.orthographicSize;
-            bounds.Left = -Camera.main.orthographicSize * Camera.main.aspect;
-            bounds.Right = Camera.main.orthographicSize * Camera.main.aspect;
+        bounds.Bottom = -Camera.main.orthographicSize;
+        bounds.Left = -Camera.main.orthographicSize * Camera.main.aspect;
+        bounds.Right = Camera.main.orthographicSize * Camera.main.aspect;
         #endregion Initialize Bounds
 
-        SpawnEnemyCircle(1, 8);
+        SpawnEnemyCircle(player.transform.position, 1, 8);
 
         bitchCooldown = Gaussian(1f, 0.5f) * BitchCooldown;
     }
@@ -57,7 +57,8 @@ public class EnemySpawner : MonoBehaviour
 
         if (state == State.Idle && CollisionManager.GetComponent<Collision>().Enemies.Count == 0)
         {
-            SpawnEnemyCircle(3f, 16);
+            // SpawnEnemyCircle(player.transform.position, 3f, 16);
+            SpawnEnemyArc(10);
         }
 
         timeSinceLastBitchSpawned += Time.deltaTime;
@@ -69,11 +70,11 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    public void SpawnEnemyCircle(float radius, int count)
+    public void SpawnEnemyCircle(Vector3 center, float radius, int count)
     {
         Spawner spawner = GetComponent<Spawner>();
-        spawner.SpawnCircle(indicator.gameObject, radius, count, _ => { });
-        spawner.SpawnCircle(indicator.gameObject, radius, count, _ => { });
+        spawner.SpawnCircle(indicator.gameObject, center, radius, count, _ => { });
+        spawner.SpawnCircle(indicator.gameObject, center, radius, count, _ => { });
 
         void callback(GameObject enemy)
         {
@@ -82,7 +83,51 @@ public class EnemySpawner : MonoBehaviour
             spawning--;
 
         }
-        spawner.SpawnCircle(enemy, radius, count, callback);
+        spawner.SpawnCircle(enemy, center, radius, count, callback);
+        spawning += count;
+    }
+
+    public void SpawnEnemyArc(int count)
+    {
+        Spawner.Side side;
+        bool directionPositiveToNegative;
+
+        #region get side and direction
+        float xNorm = player.transform.position.x / bounds.Right;
+        float yNorm = player.transform.position.y / bounds.Top;
+
+        if (xNorm < yNorm)
+        {
+            if (xNorm < -yNorm) side = Spawner.Side.Left;
+            else side = Spawner.Side.Top;
+        }
+        else
+        {
+            if (xNorm < -yNorm) side = Spawner.Side.Bottom;
+            else side = Spawner.Side.Right;
+        }
+
+        if (side == Spawner.Side.Top || side == Spawner.Side.Bottom)
+        {
+            directionPositiveToNegative = player.transform.position.x > 0;
+        }
+        else
+        {
+            directionPositiveToNegative = player.transform.position.y > 0;
+        }
+        #endregion get side and direction
+
+        Spawner spawner = GetComponent<Spawner>();
+        spawner.SpawnArc(indicator.gameObject, side, count, _ => { }, directionPositiveToNegative);
+
+        void callback(GameObject enemy)
+        {
+            enemy.GetComponent<EnemyMove>().player = player;
+            CollisionManager.GetComponent<Collision>().Enemies.Add(enemy);
+            spawning--;
+
+        }
+        spawner.SpawnArc(enemy, side, count, callback, directionPositiveToNegative);
         spawning += count;
     }
 
@@ -115,7 +160,6 @@ public class EnemySpawner : MonoBehaviour
         }
 
         return new Vector3(x, y, 0);
-        
     }
 
     private float Gaussian(float mean, float stdDev)
