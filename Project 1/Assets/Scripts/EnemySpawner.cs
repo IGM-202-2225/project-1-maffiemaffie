@@ -57,8 +57,9 @@ public class EnemySpawner : MonoBehaviour
 
         if (state == State.Idle && CollisionManager.GetComponent<Collision>().Enemies.Count == 0)
         {
-            // SpawnEnemyCircle(player.transform.position, 3f, 16);
-            SpawnEnemyArc(10);
+            float random = UnityEngine.Random.Range(0f, 1f);
+            if (random > 0.3) SpawnEnemyCircle(player.transform.position, 3f, 16);
+            else SpawnEnemyArc(20);
         }
 
         timeSinceLastBitchSpawned += Time.deltaTime;
@@ -98,13 +99,13 @@ public class EnemySpawner : MonoBehaviour
 
         if (xNorm < yNorm)
         {
-            if (xNorm < -yNorm) side = Spawner.Side.Left;
-            else side = Spawner.Side.Top;
+            if (xNorm < -yNorm) side = Spawner.Side.Right;
+            else side = Spawner.Side.Bottom;
         }
         else
         {
-            if (xNorm < -yNorm) side = Spawner.Side.Bottom;
-            else side = Spawner.Side.Right;
+            if (xNorm < -yNorm) side = Spawner.Side.Top;
+            else side = Spawner.Side.Left;
         }
 
         if (side == Spawner.Side.Top || side == Spawner.Side.Bottom)

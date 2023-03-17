@@ -116,8 +116,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfc33d140e8ae3441bf1b58bede4daf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5
-  cooldown: 0.01
+  maxHealth: 50
+  cooldown: 0.001
   increaseScore: 1
   spawnOnDeath:
   - {fileID: 8920107673990040809, guid: a5fa30322fcbcb048963ae70a8e12872, type: 3}

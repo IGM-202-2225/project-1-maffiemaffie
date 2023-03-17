@@ -140,20 +140,22 @@ public class Spawner : MonoBehaviour
         List<Vector3> points = new();
         if (vertical)
         {
-            float yStep = (bounds.Top - bounds.Bottom) / count;
-            for (float y = bounds.Left; y <= bounds.Right; y += yStep)
+            float yStep = (bounds.Top - bounds.Bottom) / (count - 1);
+            for (int i = 0; i < count; i++)
             {
                 // 0.5R( (x/U)^2 + 1 )
+                float y = yStep * i + bounds.Bottom;
                 float x = 0.5f * bounds.Right * (Mathf.Pow((y / bounds.Top), 2) + 1);
                 points.Add(new Vector3(x,y));
             }
         }
         else
         {
-            float xStep = (bounds.Right - bounds.Left) / count;
-            for (float x = bounds.Left; x <= bounds.Right; x += xStep)
+            float xStep = (bounds.Right - bounds.Left) / (count - 1);
+            for (int i = 0; i < count; i++)
             {
                 // 0.5U( (x/R)^2 + 1 )
+                float x = xStep * i + bounds.Left;
                 float y = 0.5f * bounds.Top * (Mathf.Pow((x / bounds.Right), 2) + 1);
                 points.Add(new Vector3(x, y));
             }
